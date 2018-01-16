@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>ru.spotadvisor</groupId>
+	<artifactId>backend</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>backend</name>
+	<description>Facebook app page application</description>
+
+	<parent>
+		<artifactId>app</artifactId>
+		<groupId>ru.spotadvisor</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<!--<parent>-->
+		<!--<groupId>org.springframework.boot</groupId>-->
+		<!--<artifactId>spring-boot-starter-parent</artifactId>-->
+		<!--<version>1.5.8.RELEASE</version>-->
+		<!--<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
+	<!--</parent>-->
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+        </dependency>
+
+
+        <dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-core</artifactId>
+            <version>2.0.0.M2</version>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-config</artifactId>
+            <version>2.0.0.M2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-facebook</artifactId>
+            <version>3.0.0.M1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-facebook-web</artifactId>
+            <version>3.0.0.M1</version>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-social-facebook</artifactId>-->
+        <!--</dependency>-->
+
+        <!--compile("org.springframework.social:spring-social-core:2.0.0.M2")-->
+        <!--compile("org.springframework.social:spring-social-config:2.0.0.M2")-->
+        <!--compile("org.springframework.social:spring-social-facebook:3.0.0.M1")-->
+        <!--compile "org.springframework.social:spring-social-facebook-web:3.0.0.M1"-->
+
+        <!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+		<!--</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-java8</artifactId>
+        </dependency>
+
+        <!--compile ("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")-->
+        <!--compile( "org.hibernate:hibernate-java8")-->
+
+
+
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<!--<version>9.4-1200-jdbc4</version>-->
+		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.h2database</groupId>-->
+			<!--<artifactId>h2</artifactId>-->
+			<!--<scope>runtime</scope>-->
+		<!--</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+    </dependencies>
+    <repositories>
+        <repository>
+            <id>spring-milestone</id>
+            <name>Spring Milestones</name>
+            <url>http://repo.spring.io/libs-milestone</url>
+        </repository>
+    </repositories>
+
+    <build>
+	  <plugins>
+	    <plugin>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-maven-plugin</artifactId>
+	    </plugin>
+	    <plugin>
+	      <artifactId>maven-resources-plugin</artifactId>
+	      <executions>
+	        <execution>
+	          <id>copy Vue.js frontend content</id>
+	          <phase>generate-resources</phase>
+	          <goals>
+	            <goal>copy-resources</goal>
+	          </goals>
+	          <configuration>
+	            <outputDirectory>src/main/resources/public</outputDirectory>
+	            <overwrite>true</overwrite>
+	            <resources>
+	              <resource>
+	                <directory>${project.parent.basedir}/web/target/dist</directory>
+	                <includes>
+	                  <include>static/</include>
+	                  <include>index.html</include>
+	                </includes>
+	              </resource>
+	            </resources>
+	          </configuration>
+	        </execution>
+	      </executions>
+	    </plugin>
+	  </plugins>
+	</build>
+
+</project>

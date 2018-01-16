@@ -1,0 +1,1 @@
+curl -H "Content-Type: application/json" -X POST -d '{"id":null,"spotId":3,"stuffIds":[1,2,3],"startTime":"2017-12-14T20:40:15.234+0300","end_time":null,"notes":"generated notes"}' http://localhost:8088/workouts
