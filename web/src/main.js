@@ -12,7 +12,7 @@ import App from './App'
 import router from './router'
 
 Vue.use(VueAxios, axios)
-Vue.axios.defaults.baseURL = 'https://localhost:8443'
+//Vue.axios.defaults.baseURL = 'https://localhost:8443'
 Vue.axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8'
 Vue.axios.defaults.withCredentials = true
 Vue.use(Vuetify)

@@ -64,7 +64,7 @@
   // actions
   const actions = {
     signin ({ commit }) {
-      var baseUrl = Vue.axios.defaults.baseURL
+      var baseUrl = Vue.axios.defaults.baseURL != null ? Vue.axios.defaults.baseURL : window.location.origin
       var fm = document.createElement('form')
       var scope = document.createElement('input')
       scope.value = 'user_posts'
@@ -76,7 +76,7 @@
       fm.submit()
     },
     signout ({ commit }) {
-      var baseUrl = Vue.axios.defaults.baseURL
+      var baseUrl = Vue.axios.defaults.baseURL != null ? Vue.axios.defaults.baseURL : window.location.origin
       window.location.replace(baseUrl + '/signout')
     },
     fetchProfile ({ commit }) {
