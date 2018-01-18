@@ -15,11 +15,10 @@
  */
 package ru.spotadvisor.backend.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactory;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -28,6 +27,8 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 
 import javax.sql.DataSource;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Main configuration class for the application.
@@ -39,15 +40,25 @@ import javax.sql.DataSource;
 @PropertySource("classpath:application.properties")
 public class MainConfig {
 
-//	@Bean(destroyMethod = "shutdown")
-//	public DataSource dataSource() {
-//
-//		EmbeddedDatabaseFactory factory = new EmbeddedDatabaseFactory();
-//		factory.setDatabaseName("spotadvisor");
-//		factory.setDatabaseType(EmbeddedDatabaseType.H2);
-////		factory.setDatabasePopulator(databasePopulator());
-//		return factory.getDatabase();
-//	}
+	@Bean
+  @Primary
+//  @ConfigurationProperties(prefix = "t.spring.datasource")
+	public DataSource dataSource() throws URISyntaxException {
+    DataSourceBuilder builder = DataSourceBuilder.create();
+	  try {
+      URI dbUri = new URI(System.getenv("DATABASE_URL"));
+      builder.username(dbUri.getUserInfo().split(":")[0]);
+      builder.password(dbUri.getUserInfo().split(":")[1]);
+      String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+      builder.url(dbUrl);
+    }catch(Throwable e){
+      builder.username("postgres");
+      builder.password("local");
+      builder.url("jdbc:postgresql://localhost:5432/spotadvisor");
+    }
+		return builder
+						.build();
+	}
 
 	// internal helpers
 
