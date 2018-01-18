@@ -40,31 +40,5 @@ import java.net.URISyntaxException;
 @PropertySource("classpath:application.properties")
 public class MainConfig {
 
-//	@Bean
-//  @Primary
-////  @ConfigurationProperties(prefix = "t.spring.datasource")
-//	public DataSource dataSource() throws URISyntaxException {
-//    DataSourceBuilder builder = DataSourceBuilder.create();
-//	  try {
-//      URI dbUri = new URI(System.getenv("DATABASE_URL"));
-//      builder.username(dbUri.getUserInfo().split(":")[0]);
-//      builder.password(dbUri.getUserInfo().split(":")[1]);
-//      String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
-//      builder.url(dbUrl);
-//    }catch(Throwable e){
-//      builder.username("postgres");
-//      builder.password("local");
-//      builder.url("jdbc:postgresql://localhost:5432/spotadvisor");
-//    }
-//		return builder
-//						.build();
-//	}
 
-	// internal helpers
-
-	private DatabasePopulator databasePopulator() {
-		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-		populator.addScript(new ClassPathResource("JdbcUsersConnectionRepository.sql", JdbcUsersConnectionRepository.class));
-		return populator;
-	}
 }
