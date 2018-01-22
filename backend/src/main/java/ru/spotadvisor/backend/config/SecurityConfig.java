@@ -26,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //            .antMatchers("/**").permitAll()
             .antMatchers("/h2-console/**").permitAll()
             .antMatchers("/api/profile").permitAll()
+            .antMatchers("/api/spot_statuses").permitAll()
             .antMatchers("/api/**").authenticated()
             .antMatchers("/home").authenticated()
             .antMatchers("/logout").authenticated()

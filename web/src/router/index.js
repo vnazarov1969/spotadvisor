@@ -4,6 +4,7 @@ import Full from '@/containers/Full'
 import Frame from '@/containers/Frame'
 import Hello from '@/components/Hello'
 import Dashboard from '@/components/Dashboard'
+import vDashboardFB from '@/components/DashboardFB'
 import vTrackList from '@/components/TrackList'
 import vSpotList from '@/components/SpotList'
 
@@ -27,6 +28,11 @@ export default new Router({
           component: Dashboard
         },
         {
+          path: 'my_track',
+          name: 'Track',
+          component: vTrackList
+        },
+        {
           path: 'spots',
           name: 'Spots',
           component: vSpotList
@@ -47,7 +53,7 @@ export default new Router({
         {
           path: 'track',
           name: 'Track',
-          component: vTrackList
+          component: vDashboardFB
         },
         {
           path: 'spots',

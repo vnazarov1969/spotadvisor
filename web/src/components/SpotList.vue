@@ -2,7 +2,7 @@
   <v-container fluid pa-0>
     <v-card>
       <v-toolbar color="white" light dense flat >
-        <v-toolbar-title>Spots 
+        <v-toolbar-title>{{title}}
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-menu open-on-hover left min-width='20rem'>
@@ -51,12 +51,21 @@
 
   import moment from 'moment'
   const ADD_SPOT_ACTION = 'ADD_SPOT'
+  const ACTIVE_SCOPE = 'Active'
 
   export default {
     name: 'spot-list',
     components: {vShowRatings, vSpotForm},
     props: {
-      listHeight: {}
+      listHeight: {},
+      vState: {
+        type: Object,
+        default () {
+          return {
+            scope: null
+          }
+        }
+      }
     },
     data: () => ({
       dialog: false,
@@ -72,15 +81,33 @@
     computed: {
       spots () {
         var arr = this.$store.state.spotStatuses.slice()
-        arr.push({header: 'Today', lastWorkout: moment({hour: 24}), displayName: ''})
-        arr.push({header: 'Later', lastWorkout: moment({hour: 0}), displayName: ''})
-        return arr.sort(function (a, b) {
-          if (moment(b.lastWorkout).isSame(moment(), 'day') || moment(a.lastWorkout).isSame(moment(), 'day')) {
-            return (moment(b.lastWorkout ? b.lastWorkout : 0) - moment(a.lastWorkout ? a.lastWorkout : 0)) || a.displayName.localeCompare(b.displayName)
-          } else {
-            return a.displayName.localeCompare(b.displayName)
-          }
-        })
+        if (!arr) {
+          return arr
+        }
+        if (!this.vState || this.vState.scope === null) {
+          arr.push({header: 'Today', lastWorkout: moment({hour: 24}), displayName: ''})
+          arr.push({header: 'Later', lastWorkout: moment({hour: 0}), displayName: ''})
+          return arr.sort(function (a, b) {
+            if (moment(b.lastWorkout).isSame(moment(), 'day') || moment(a.lastWorkout).isSame(moment(), 'day')) {
+              return (moment(b.lastWorkout ? b.lastWorkout : 0) - moment(a.lastWorkout ? a.lastWorkout : 0)) || a.displayName.localeCompare(b.displayName)
+            } else {
+              return a.displayName.localeCompare(b.displayName)
+            }
+          })
+        }
+        if (ACTIVE_SCOPE.localeCompare(this.vState.scope) === 0) {
+          var currentTime = moment()
+          arr = arr.filter(a => moment(a.lastWorkout).isSame(currentTime, 'day'))
+          return arr.sort((a, b) => (moment(b.lastWorkout ? b.lastWorkout : 0) - moment(a.lastWorkout ? a.lastWorkout : 0)))
+        }
+      },
+      title () {
+        switch (this.vState.scope) {
+          case ACTIVE_SCOPE:
+            return 'Active spots'
+          default:
+            return 'Spots'
+        }
       }
     },
     methods: {

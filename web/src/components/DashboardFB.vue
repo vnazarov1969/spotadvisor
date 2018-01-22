@@ -2,11 +2,12 @@
   <v-container fluid pa-2>
     <v-layout row wrap>
       <v-flex d-flex pa-2 sm6>
-        <v-track-list list-height="16rem"/>
+        <!-- <v-track-list list-height="16rem"/> -->
+        <v-track-list/>
       </v-flex>
-      <v-flex pa-2 sm6>
-        <v-card height="16rem">
-        <v-spot-list :vState="vState"/>
+      <v-flex pa-2 sm3>
+        <v-card>
+          <v-spot-list :vState="vState"/>
         </v-card>
       </v-flex>
     </v-layout>

@@ -36,7 +36,7 @@
           icon
           @click.stop="profile == null ? signin() : signout()"
           slot="activator"
-        > 
+        >
         <v-avatar v-show="profile" size="2.2rem">
           <img :src="pictureUrl">
         </v-avatar>
@@ -71,6 +71,11 @@
             icon: 'bubble_chart',
             title: 'Dashboard',
             route: '/dashboard'
+          },
+          {
+            icon: 'bubble_chart',
+            title: 'My Track',
+            route: '/my_track'
           },
           {
             icon: 'bubble_chart',
@@ -115,5 +120,5 @@
 <style>
   .container.fluid {
     padding: 0;
-  } 
+  }
 </style>
